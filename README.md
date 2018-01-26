@@ -1,8 +1,16 @@
-# topology-optimization-
-This project contains topology optimization of structure with SIMP and multiscale opitimization of both structure and materials with AH ,the programming language is Python and the FEA solver is ANSYS MAPDL. Our research group mainly research about optimization of lattice materials,and my personal interests also include machine learning\ data visualization\web sever
+# Topology-optimization
+　　This project contains topology optimization of structure with SIMP and multiscale opitimization of both structure and materials with AH ,the programming language is Python and the FEA solver is ANSYS MAPDL.<br>
 
-This is a basic optimization frame.
-The benchmark is a 2D rectangular cantilever , contains two modules: optimization and finite element analysis.
-The next release will contain data visualization of stress, strain,and displacement.
+## vertion 1.0
+　　This is a basic optimization frame.<br>
+　　The benchmark is a 2D rectangular cantilever , contains two modules: optimization and finite element analysis.The next release will contain data visualization of stress, strain,and displacement.<br>
 
-In current，this project include two branches,one is master which is responsible for optimization ,and the other is datavisualizaiton which is responsible for data visualization. 
+## vertion 1.1
+　　This version contains postprocessor to visualize the optimization results．<br>
+Mainly include:<br>
+　　1.Show the stress, strain, and displacement timely.<br>
+　　2.Show the convergence curve timely.<br>
+　　3.Animate the results and make movie.<br> 
+　　The SDK is Mayavi+traits+traitsUI+tvtk.<br>
+
+
