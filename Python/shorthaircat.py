@@ -3,6 +3,8 @@
 import numpy as np
 import threading
 import matplotlib.pyplot as plt
+from matplotlib.patches import Circle
+import matplotlib.ticker as ticker
 
 #user defined pakages import
 from optimization_simp import Simp
@@ -178,12 +180,22 @@ class ShorthairCat(HasTraits):
         self.simp_solver.on_trait_change(self._update_vtkdatasource,name = 'loop')
 
 
+
+
+
     def _calculate_button_fired(self):
         #监听loop，一改变立刻更新曲线，同时建立background thread ,在后台进行有限元计算
-        self.simp_solver.on_trait_change(self._plot_convergence_curve, name='loop', dispatch='new')#TODO 发现如果用dispatch = 'ui' 有很大几率卡死,但是这个模式会报错，不过不影响使用
-        computation_thread = threading.Thread(target=self.simp_solver.simp,args=(),name= 'Thread-1')
-        computation_thread.daemon = True
-        computation_thread.start()
+        # self.simp_solver.on_trait_change(self._plot_convergence_curve, name='loop', dispatch='new')#TODO 发现如果用dispatch = 'ui' 有很大几率卡死,但是这个模式会报错，不过不影响使用
+        #self.simp_solver.on_trait_change(self._plot,name = 'loop')
+
+        self.computation_thread = threading.Thread(target=self.simp_solver.simp,args=(),name= 'Thread-1')
+        self.computation_thread.daemon = True
+        self.computation_thread.start()
+
+        self.plot_thread = threading.Thread(target = self._plot_convergence_curve,args = (),name = 'Thread-2')
+        self.plot_thread.daemon = True
+        self.plot_thread.start()
+
 
 
 
@@ -276,13 +288,42 @@ class ShorthairCat(HasTraits):
          return self.scene.engine.current_selection
 
     def _plot_convergence_curve(self):
-        plt.plot(self.simp_solver.strain_energy)
-        ylabel = 'strain_energy/iteration: '+str(self.simp_solver.loop)
-        plt.ylabel(ylabel)
-        plt.xlabel('steps')
-        plt.title('convergence curve of strain energy')
-        plt.show(block = None)
 
+        plt.close()  # clf() # 清图  cla() # 清坐标轴 close() # 关窗口
+
+        fig = plt.figure()
+        ax = fig.add_subplot(1, 1, 1)
+        ax.axis("auto")
+        # ax.xaxis()# 设置图像显示的时候XY轴比例
+        plt.grid(True)  # 添加网格
+        plt.ion()  # interactive mode on
+        try:
+            while 1:
+                ax.plot(self.simp_solver.strain_energy,c='b')
+                ax.set_xlabel('steps')
+                ylabel = 'Strain_energy/Iteration: '+str(self.simp_solver.loop)
+                ax.set_ylabel(ylabel)
+                ax.set_title('convergence curve of strain energy')
+                plt.pause(1)
+                if self.simp_solver.finished:
+                    break
+            ax.plot(self.simp_solver.strain_energy,c = 'b')
+            plt.savefig('Convergence_curve.png')
+            plt.pause(36000)
+
+        except Exception as err:
+            print(err)
+        # plt.plot(self.simp_solver.strain_energy)
+        # ylabel = 'strain_energy/iteration: '+str(self.simp_solver.loop)
+        # plt.ylabel(ylabel)
+        # plt.xlabel('steps')
+        # plt.title('convergence curve of strain energy')
+        # plt.show()
+
+
+
+    def _plot(self):
+        pass
     def _animate(self):
 
         self.scene.engine.current_scene = self.scene4.mayavi_scene
