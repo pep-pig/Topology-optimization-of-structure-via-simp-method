@@ -12,5 +12,9 @@ Mainly include:<br>
 　　2.Show the convergence curve timely.<br>
 　　3.Animate the results and make movie.<br> 
 　　The SDK is Mayavi+traits+traitsUI+tvtk.<br>
+  
+## vertion 1.2
+　　This version is versatile,it can optimize 2D and 3D structure no matter using what kind of grid to mesh the geometry.<br>
+　　It is suitble for maximazing stiffness in linear prolblem.
 
 
