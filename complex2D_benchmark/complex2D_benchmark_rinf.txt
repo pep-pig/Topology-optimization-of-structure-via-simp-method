@@ -1,0 +1,74 @@
+!导入有限元模型
+/CWD,'H:\MaterThesis\ANSYS_SD\ANSYS_GUI\complex2D_benchmark\complex2D'   
+RESUME,'complex2D_grid','db','H:\MATERTHESIS\ANSYS_SD\ANSYS_GUI\complex2D_benchmark\complex2D',0,0   
+/FILENAME,complex2D_benchmark,1
+/TITLE,get_result_data 
+ 
+!获取单元数和节点数
+*GET,ELEMSUM,ELEMENT,0,COUNT
+*GET,NODESUM,NODE,0,COUNT
+
+!创建一个nX2数组MATRIAL_EM，读入文件存储弹性模量与泊松比
+*DIM,MATERIAL,ARRAY,ELEMSUM,2                                                       !指定数组名称为MATERIAL,类型为ARRAY，维度为589x2
+*VREAD,MATERIAL(1,1),material,txt,,JIK,2,ELEMSUM                                   !从文件material.txt中读取数据到MATERIAL中，循环下标的顺序JIK，既最先对J遍历，范围为2，589，1
+(E14.7,E15.7)  
+
+!进入前处理器
+/PREP7                                                     
+!创建材料库
+*DO,i,1,ELEMSUM
+MP,EX,i,MATERIAL(i,2)  
+MP,PRXY,i,MATERIAL(i,1)  
+*ENDDO
+
+!为每个单元分配不同的材料
+*DO,i,1,ELEMSUM 
+FLST,2,1,2,ORDE,1 
+FITEM,2,i 
+EMODIF,P51X,MAT,i,  
+*ENDDO
+
+!进入求解器设置求解类型
+/SOL
+ANTYPE,0
+
+!求解
+/STATUS,SOLU
+SOLVE
+
+!创建数组存储节点解
+*DIM,NODAL_SOLUTION_U,ARRAY,NODESUM,2
+*VGET,NODAL_SOLUTION_U(1,1),NODE,1,U,X
+*VGET,NODAL_SOLUTION_U(1,2),NODE,1,U,Y
+
+!创建数组存储vonmiss应力
+*DIM,NODAL_SOLUTION_STRESS,ARRAY,NODESUM,1
+*VGET,NODAL_SOLUTION_STRESS(1,1),NODE,1,S,EQV
+
+!创建数组存储当量应变
+*DIM,NODAL_SOLUTION_STRAIN,ARRAY,NODESUM,1
+*VGET,NODAL_SOLUTION_STRAIN(1,1),NODE,1,EPTO,INT
+
+
+!将节点解存入本地文件
+*CFOPEN,nodal_solution_u,txt
+*VWRITE,NODAL_SOLUTION_U(1,1), NODAL_SOLUTION_U(1,2)
+(F20.10,'    ',F20.10)
+*CFCLOS
+
+!将vonmiss应力写入本地文件
+*CFOPEN,nodal_solution_stress,txt
+*VWRITE,SEQU,NODAL_SOLUTION_STRESS(1,1)
+%10I    %20.10f
+*CFCLOS
+
+!将应变强度写入本地文件，此处以后需要修改
+*CFOPEN,nodal_solution_strain,txt
+*VWRITE,SEQU,NODAL_SOLUTION_STRAIN(1,1)
+%10I    %20.10f
+*CFCLOS
+
+!保存并退出     
+SAVE
+FINISH
+exit
