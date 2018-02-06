@@ -15,6 +15,6 @@ Mainly include:<br>
   
 ## vertion 1.2
 　　This version is versatile,it can optimize 2D and 3D structure no matter using what kind of grid to mesh the geometry.<br>
-　　It is suitble for maximazing stiffness in linear prolblem.
+　　And,this vertion is more much more efficient as I replaced the for loop by vectorizing.
 
 
