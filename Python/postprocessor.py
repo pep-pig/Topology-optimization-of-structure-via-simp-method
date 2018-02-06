@@ -117,10 +117,15 @@ class ResultData(object):
         points = global_variable.NODE_COORDINATES
         self.index = where(self.density>=(1.0-filter))[0].tolist()
         cells = (global_variable.ELEMENT_ATTRIBUTES[self.index,:]-1)
-        cell_tpye = tvtk.Polygon().cell_type
-        rectangle = tvtk.UnstructuredGrid(points = points)
-        rectangle.set_cells(cell_tpye,cells)
-        return  rectangle
+        if global_variable.GRID_TYPE =='Polygon':
+            cell_tpye = tvtk.Polygon().cell_type
+
+        if global_variable.GRID_TYPE =='Hexahedron':
+            cell_tpye = tvtk.Hexahedron().cell_type
+
+        grid = tvtk.UnstructuredGrid(points = points)
+        grid.set_cells(cell_tpye,cells)
+        return  grid
 
     #生成密度数据
     def update_unstrgrid_density(self, density):

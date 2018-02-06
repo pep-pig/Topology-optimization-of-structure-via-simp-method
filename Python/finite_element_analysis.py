@@ -27,26 +27,26 @@ class FiniteElementAnalysis(object):
     nodal_solution_stress.txt: 节点应力，Vonmiss应力，一列，行数等于节点数
     nodal_solution_strain.txt: 节点应变，一列，行数等于节点数
     """
-    def __init__(self,dim):
+    def __init__(self):
         # 输入文件(APDL)和输出文件都将在cwd目录中，而ANSYS需要的其他输入数据或输出数据的路径，将由ANSYS的APDL指定
+
+
+        if global_variable.TYPE == 'cantilever_benchmark':
         #---------------实验室台式机路径--------------------
+            self.meshdata_cmd = ["E:\Program Files\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
+                   'H:\MaterThesis\ANSYS_SD\ANSYS_GUI\cantilever_benchmark\cantilever_benchmark_minf.txt', '-o', 'H:\MaterThesis\ANSYS_SD\ANSYS_GUI\cantilever_benchmark\cantilever_benchmark_minf.out']
+            self.result_cmd = ["E:\Program Files\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
+                   'H:\MaterThesis\ANSYS_SD\ANSYS_GUI\cantilever_benchmark\cantilever_benchmark_rinf.txt', '-o', 'H:\MaterThesis\ANSYS_SD\ANSYS_GUI\cantilever_benchmark\cantilever_benchmark_rinf.out']
+            self.awd = 'H:/MaterThesis/ANSYS_SD/ANSYS_GUI/cantilever_benchmark/cantilever/'
+            self.dim = global_variable.DIM
 
-        self.meshdata_cmd = ["E:\Program Files\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
-               'H:\MaterThesis\ANSYS_SD\APDL_Script\ANSYS_GUI\optimization_simp\get_meshmodel_data.txt', '-o', 'H:\MaterThesis\ANSYS_SD\APDL_Script\ANSYS_GUI\optimization_simp\get_meshmodel_data.out']
-        self.result_cmd = ["E:\Program Files\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
-               'H:\MaterThesis\ANSYS_SD\APDL_Script\ANSYS_GUI\optimization_simp\get_result_data.txt', '-o', 'H:\MaterThesis\ANSYS_SD\APDL_Script\ANSYS_GUI\optimization_simp\get_result_data.out']
-        self.awd = 'H:/MaterThesis/ANSYS_SD/APDL_Script/ANSYS_GUI/optimization_simp/'
-        self.dim = dim
-        subprocess.call(self.meshdata_cmd)
-
-
-        #---------------工作站路径----------------
+        # ---------------工作站路径----------------
         # self.meshdata_cmd = ["D:\Program Files\ANSYS2017\ANSYS17.0\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
         #        'D:\Fengjb\TopologyOptimization\SIMP\get_meshmodel_data.txt', '-o', 'D:\Fengjb\TopologyOptimization\SIMP\get_meshmodel_data.out']
         # self.result_cmd = ["D:\Program Files\ANSYS2017\ANSYS17.0\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
         #        'D:\Fengjb\TopologyOptimization\SIMP\get_result_data.txt', '-o', 'D:\Fengjb\TopologyOptimization\SIMP\get_result_data.out']
         # self.awd = 'D:/Fengjb/TopologyOptimization/SIMP/'
-        # subprocess.call(self.meshdata_cmd)
+        # self.dim = global_variable.DIM
 
         # ---------------pc路径----------------
         # self.meshdata_cmd = ["F:\ANSYS 17.0\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
@@ -54,8 +54,30 @@ class FiniteElementAnalysis(object):
         # self.result_cmd =   ["F:\ANSYS 17.0\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
         #        'G:\Research\optimization_simp\get_result_data.txt', '-o', 'G:\Research\optimization_simp\get_result_data.out']
         # self.awd = 'G:/Research/optimization_simp/'
-        # self.dim = dim
-        # subprocess.call(self.meshdata_cmd)
+        # self.dim = global_variable.DIM
+
+
+        if global_variable.TYPE == 'complex2D_benchmark':
+        # ---------------实验室台式机路径--------------------
+            self.meshdata_cmd = ["E:\Program Files\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
+                   'H:\MaterThesis\ANSYS_SD\ANSYS_GUI\complex2D_benchmark\complex2D_benchmark_minf.txt', '-o', 'H:\MaterThesis\ANSYS_SD\ANSYS_GUI\complex2D_benchmark\complex2D_benchmark_minf.out']
+            self.result_cmd = ["E:\Program Files\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
+                   'H:\MaterThesis\ANSYS_SD\ANSYS_GUI\complex2D_benchmark\complex2D_benchmark_rinf.txt', '-o', 'H:\MaterThesis\ANSYS_SD\ANSYS_GUI\complex2D_benchmark\complex2D_benchmark_rinf.out']
+            self.awd = 'H:/MaterThesis/ANSYS_SD/ANSYS_GUI/complex2D_benchmark/complex2D/'
+            self.dim = global_variable.DIM
+
+
+        if global_variable.TYPE == '3D':
+        # ---------------实验室台式机路径--------------------
+            self.meshdata_cmd = ["E:\Program Files\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
+                   'H:\MaterThesis\ANSYS_SD\APDL_Script\ANSYS_GUI\\versatile_simp\get_3D_benchmark_minf.txt', '-o', 'H:\MaterThesis\ANSYS_SD\APDL_Script\ANSYS_GUI\\versatile_simp\get_3D_benchmark_minf.out']
+            self.result_cmd = ["E:\Program Files\ANSYS Inc\\v170\ANSYS\\bin\winx64\MAPDL.exe", '-b', '-i',
+                   'H:\MaterThesis\ANSYS_SD\APDL_Script\ANSYS_GUI\\versatile_simp\get_3D_benchmark_rinf.txt', '-o', 'H:\MaterThesis\ANSYS_SD\APDL_Script\ANSYS_GUI\\versatile_simp\get_3D_benchmark_rinf.out']
+            self.awd = 'H:/MaterThesis/ANSYS_SD/APDL_Script/ANSYS_GUI/versatile_simp/cantilever'
+            self.dim = global_variable.DIM
+
+    def boot(self):
+        subprocess.call(self.meshdata_cmd)
 
     def get_counts(self,element_nodes_file):
         """
@@ -87,9 +109,9 @@ class FiniteElementAnalysis(object):
         将生成的材料文件存入material.txt
         """
         nu = 0.3 * np.ones((global_variable.ELEMENT_COUNTS))
-        ex = x**penal
+        ex = (x**penal)*(2.1)
         material = np.array([nu, ex]).T
-        np.savetxt(self.awd+"material.txt", material, fmt=' %-.10f', newline='\n')
+        np.savetxt(self.awd+"material.txt", material, fmt=' %-.7E', newline='\n')
 
 
     def extract_element_stiffness(self,text):
@@ -138,6 +160,7 @@ class FiniteElementAnalysis(object):
         for element_number in element_numbers:
             element_order.append(int(re.split(r'[ ]', element_number)[-1]))
         # 组装
+        # sorted_element_order = array(element_order.sort())
         for i in range(global_variable.ELEMENT_COUNTS):
             k[element_order[i] - 1, :, :] = K_disorder[i, :, :]
         return k
@@ -198,7 +221,12 @@ class FiniteElementAnalysis(object):
 
 #单元测试
 if __name__=='__main__':
-    ansys_solver = FiniteElementAnalysis()
+    global_variable.initialize_global_variable(DIM = 24)
+    x = 0.4 * np.ones(global_variable.ELEMENT_COUNTS)
+    ansys_solver = FiniteElementAnalysis(dim = 24)
+    ansys_solver.get_result_data(x=x,penal=3)
+
+
 
 
 

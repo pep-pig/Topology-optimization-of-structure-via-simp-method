@@ -3,10 +3,10 @@ from postprocessor import *
 from numpy import *
 
 
-global ELEMENT_COUNTS,ELEMENT_ATTRIBUTES,NODE_COORDINATES,NODE_COUNTS,CENTERS,V,K
+global ELEMENT_COUNTS,ELEMENT_ATTRIBUTES,NODE_COORDINATES,NODE_COUNTS,CENTERS,V,K,DIM,GRID_TYPE,TYPE
 
 
-def initialize_global_variable(DIM):
+def initialize_global_variable(type):
     '''
     以待求解的有限元模型座位输入，产生全局变量
     Parameter
@@ -18,8 +18,17 @@ def initialize_global_variable(DIM):
     在整个计算过程中不发生改变的全局变量
 
     '''
-    global ELEMENT_COUNTS, ELEMENT_ATTRIBUTES, NODE_COORDINATES, NODE_COUNTS, CENTERS, V, K
-    ANSYS_SOLVER = FiniteElementAnalysis(DIM)
+    global ELEMENT_COUNTS, ELEMENT_ATTRIBUTES, NODE_COORDINATES, NODE_COUNTS, CENTERS, V, K,DIM,GRID_TYPE,TYPE
+
+    TYPE = type
+    if TYPE =='cantilever_benchmark' or TYPE == 'complex2D_benchmark':
+        DIM = 8
+        GRID_TYPE = 'Polygon'
+    if TYPE =='complex3D_benchmark':
+        DIM = 24
+        GRID_TYPE = 'Hexahedron'
+    ANSYS_SOLVER = FiniteElementAnalysis()
+    ANSYS_SOLVER.boot()
     ELEMENT_COUNTS, NODE_COUNTS = ANSYS_SOLVER.get_counts(ANSYS_SOLVER.awd + 'elements_nodes_counts.txt')
     K, ELEMENT_ATTRIBUTES, CENTERS, V, NODE_COORDINATES = ANSYS_SOLVER.get_meshmodel_data()
 

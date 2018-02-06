@@ -154,7 +154,7 @@ class ShorthairCat(HasTraits):
                 )
 
     #**traits 表示传入参数的个数不确定
-    def __init__(self, **traits):
+    def __init__(self, type='2D',**traits):
 
         HasTraits.__init__(self, **traits)
         self.scene.mayavi_scene.name = 'Geometry'
@@ -171,10 +171,15 @@ class ShorthairCat(HasTraits):
         #对current_selection 进行动态监听，如果current_selection的值发生变化就调用 self._selection_change
         self.scene.engine.on_trait_change(self._selection_change,name = 'current_selection')
         self.simp_solver = None
-
+        self.type = type
 
     def _initial_button_fired(self):
-        global_variable.initialize_global_variable(DIM = 8)
+        self.initial_thread = threading.Thread(target = self._initial,args=(),name='Thread-1')
+        self.initial_thread.daemon = True
+        self.initial_thread.start()
+
+    def _initial(self):
+        global_variable.initialize_global_variable(type =self.type)
         self.simp_solver = Simp()
         self._mayavi()
         self.simp_solver.on_trait_change(self._update_vtkdatasource,name = 'loop')
@@ -188,11 +193,11 @@ class ShorthairCat(HasTraits):
         # self.simp_solver.on_trait_change(self._plot_convergence_curve, name='loop', dispatch='new')#TODO 发现如果用dispatch = 'ui' 有很大几率卡死,但是这个模式会报错，不过不影响使用
         #self.simp_solver.on_trait_change(self._plot,name = 'loop')
 
-        self.computation_thread = threading.Thread(target=self.simp_solver.simp,args=(),name= 'Thread-1')
+        self.computation_thread = threading.Thread(target=self.simp_solver.simp,args=(),name= 'Thread-2')
         self.computation_thread.daemon = True
         self.computation_thread.start()
 
-        self.plot_thread = threading.Thread(target = self._plot_convergence_curve,args = (),name = 'Thread-2')
+        self.plot_thread = threading.Thread(target = self._plot_convergence_curve,args = (),name = 'Thread-3')
         self.plot_thread.daemon = True
         self.plot_thread.start()
 
@@ -336,7 +341,7 @@ class ShorthairCat(HasTraits):
 
 
 if __name__ == '__main__':
-    m = ShorthairCat()
+    m = ShorthairCat(type='cantilever_benchmark')
     m.configure_traits()
 
 
