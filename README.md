@@ -1,4 +1,4 @@
-# Topology-optimization
+# Topology-optimizer
 　　This project contains topology optimization of structure with SIMP and multiscale opitimization of both structure and materials with AH ,the programming language is Python and the FEA solver is ANSYS MAPDL.<br>
 
 ## vertion 1.0.0
