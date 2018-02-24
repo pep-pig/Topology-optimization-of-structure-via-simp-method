@@ -1,0 +1,83 @@
+!��������Ԫģ��
+/CWD,'G:\RESEARCH\MasterThesis\ANSYS_SD\ANSYS_GUI\complex3D_benchmark\complex3D'
+RESUME,'complex3D_grid','db','G:\RESEARCH\MASTERTHESIS\ANSYS_SD\ANSYS_GUI\complex3D_benchmark\complex3D',0,0
+/FILENAME,complex3D_benchmark_result,1
+/TITLE,get_result_data
+
+!��ȡ��Ԫ���ͽڵ���
+*GET,ELEMSUM,ELEMENT,0,COUNT
+*GET,NODESUM,NODE,0,COUNT
+
+!����һ��nX2����MATRIAL_EM�������ļ��洢����ģ���벴�ɱ�
+*DIM,MATERIAL,ARRAY,ELEMSUM,2                                                       !ָ����������ΪMATERIAL,����ΪARRAY��ά��Ϊ589x2
+*VREAD,MATERIAL(1,1),material,txt,,JIK,2,ELEMSUM                                   !���ļ�material.txt�ж�ȡ���ݵ�MATERIAL�У�ѭ���±��˳��JIK�������ȶ�J��������ΧΪ2��589��1
+(E14.7,E15.7)  
+
+!����ǰ������
+/PREP7                                                     
+!�������Ͽ�
+*DO,i,1,ELEMSUM
+MP,EX,i,MATERIAL(i,2)  
+MP,PRXY,i,MATERIAL(i,1)  
+*ENDDO
+
+!Ϊÿ����Ԫ���䲻ͬ�Ĳ���
+*DO,i,1,ELEMSUM 
+FLST,2,1,2,ORDE,1 
+FITEM,2,i 
+EMODIF,P51X,MAT,i,  
+*ENDDO
+
+!��������������������
+/SOL
+ANTYPE,0
+
+!���
+/STATUS,SOLU
+SOLVE
+
+/POST1
+ETABLE,strain_e,SENE,
+*VGET,strain_e,ELEM,1,ETAB,STRAIN_E, , ,2
+
+!��������洢�ڵ��
+*DIM,NODAL_SOLUTION_U,ARRAY,NODESUM,3
+*VGET,NODAL_SOLUTION_U(1,1),NODE,1,U,X
+*VGET,NODAL_SOLUTION_U(1,2),NODE,1,U,Y
+*VGET,NODAL_SOLUTION_U(1,3),NODE,1,U,Z
+
+!��������洢vonmissӦ��
+*DIM,NODAL_SOLUTION_STRESS,ARRAY,NODESUM,1
+*VGET,NODAL_SOLUTION_STRESS(1,1),NODE,1,S,EQV
+
+!��������洢����Ӧ��
+*DIM,NODAL_SOLUTION_STRAIN,ARRAY,NODESUM,1
+*VGET,NODAL_SOLUTION_STRAIN(1,1),NODE,1,EPTO,INT
+
+*CFOPEN,strain_energy,txt
+*VWRITE,strain_e(1,1)
+(E15.7)
+*CFCLOS
+
+!���ڵ����뱾���ļ�
+*CFOPEN,nodal_solution_u,txt
+*VWRITE,NODAL_SOLUTION_U(1,1), NODAL_SOLUTION_U(1,2),NODAL_SOLUTION_U(1,3)
+(E15.7,'    ',E15.7,'    ',E15.7)
+*CFCLOS
+
+!��vonmissӦ��д�뱾���ļ�
+*CFOPEN,nodal_solution_stress,txt
+*VWRITE,SEQU,NODAL_SOLUTION_STRESS(1,1)
+%10I    %15.7E
+*CFCLOS
+
+!��Ӧ��ǿ��д�뱾���ļ����˴��Ժ���Ҫ�޸�
+*CFOPEN,nodal_solution_strain,txt
+*VWRITE,SEQU,NODAL_SOLUTION_STRAIN(1,1)
+%10I    %15.7E
+*CFCLOS
+
+!���沢�˳�     
+SAVE
+FINISH
+exit
