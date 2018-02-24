@@ -73,7 +73,7 @@ class ResultData(object):
             #设置写入的文件
             self.writer.set_input_data(self.unstrgrid_displacement)
             #设置写入文件的名称
-            self.writer.file_name = 'Displacement\\'+name
+            self.writer.file_name = 'G:\\resultdata\\Displacement\\'+name
             #开始写入
             self.writer.write()
 
@@ -82,7 +82,7 @@ class ResultData(object):
         if loop!=-1:
             name = 'stress_0'+str(loop)+'.vti'
             self.writer.set_input_data(self.unstrgrid_stress)
-            self.writer.file_name = 'Stress\\'+name
+            self.writer.file_name = 'G:\\resultdata\\Stress\\'+name
             self.writer.write()
 
 
@@ -92,7 +92,7 @@ class ResultData(object):
         if loop!=-1:
             name = 'strain_0'+str(loop)+'.vti'
             self.writer.set_input_data(self.unstrgrid_strain)
-            self.writer.file_name = 'Strain\\'+name
+            self.writer.file_name = 'G:\\resultdata\\Strain\\'+name
             self.writer.write()
 
 
@@ -101,7 +101,7 @@ class ResultData(object):
         if loop!=-1:
             name = 'density_0'+str(loop)+'.vti'
             self.writer.set_input_data(self.unstrgrid_density)
-            self.writer.file_name = 'Density\\'+name
+            self.writer.file_name = 'G:\\resultdata\\Density\\'+name
             self.writer.write()
 
     #生成vtkdata类型数据

@@ -3,8 +3,17 @@ from postprocessor import *
 from numpy import *
 
 
-global ELEMENT_COUNTS,ELEMENT_ATTRIBUTES,NODE_COORDINATES,NODE_COUNTS,CENTERS,V,K,DIM,GRID_TYPE,TYPE
+global ELEMENT_COUNTS,ELEMENT_ATTRIBUTES,NODE_COORDINATES,NODE_COUNTS,CENTERS,V,DIM,GRID_TYPE,TYPE
+global R, E, NU, PENAL, MOVE,VOLFAC
 
+def hyperparameter(r,penal,volfac,move,e,nu):
+    global R, E, NU, PENAL, MOVE,VOLFAC
+    R=r
+    PENAL=penal
+    MOVE=move
+    E=e
+    NU=nu
+    VOLFAC = volfac
 
 def initialize_global_variable(type):
     '''
@@ -19,16 +28,16 @@ def initialize_global_variable(type):
 
     '''
     global ELEMENT_COUNTS, ELEMENT_ATTRIBUTES, NODE_COORDINATES, NODE_COUNTS, CENTERS, V, K,DIM,GRID_TYPE,TYPE
-
     TYPE = type
     if TYPE =='cantilever_benchmark' or TYPE == 'complex2D_benchmark':
         DIM = 8
         GRID_TYPE = 'Polygon'
-    if TYPE =='complex3D_benchmark':
+    if TYPE =='complex3D_benchmark' or TYPE == 'complex3D_benchmark_hex':
         DIM = 24
         GRID_TYPE = 'Hexahedron'
     ANSYS_SOLVER = FiniteElementAnalysis()
     ANSYS_SOLVER.boot()
     ELEMENT_COUNTS, NODE_COUNTS = ANSYS_SOLVER.get_counts(ANSYS_SOLVER.awd + 'elements_nodes_counts.txt')
-    K, ELEMENT_ATTRIBUTES, CENTERS, V, NODE_COORDINATES = ANSYS_SOLVER.get_meshmodel_data()
+    ELEMENT_ATTRIBUTES, CENTERS, V, NODE_COORDINATES = ANSYS_SOLVER.get_meshmodel_data()
+
 

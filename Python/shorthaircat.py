@@ -17,7 +17,7 @@ from traitsui.api import View, Item, Group,HSplit, VSplit, InstanceEditor,RangeE
 from tvtk.pyface.scene_editor import SceneEditor#导入场景配置api
 from mayavi.core.api import PipelineBase,Engine
 from mayavi.sources.vtk_data_source import VTKDataSource
-from mayavi.modules.api import Surface
+from mayavi.modules.api import Surface , Volume
 from mayavi.core.ui.engine_view import EngineView#导入引擎可视化模块
 from mayavi.core.ui.mayavi_scene import MayaviScene
 from mayavi.tools.mlab_scene_model import MlabSceneModel#导入mlab 绘图窗口的可视化模型
@@ -146,15 +146,15 @@ class ShorthairCat(HasTraits):
                                   orientation = 'vertical'),
                     orientation = 'horizontal'
                 ),
-                height = 800,
-                width = 1000,
+                height = 600,
+                width = 760,
                 resizable=True,
                 # scrollable=True,
                 title = 'ShorthairCat',
                 )
 
     #**traits 表示传入参数的个数不确定
-    def __init__(self, type='2D',**traits):
+    def __init__(self,type,r,penal,move,e,nu,volfac,**traits):
 
         HasTraits.__init__(self, **traits)
         self.scene.mayavi_scene.name = 'Geometry'
@@ -172,6 +172,12 @@ class ShorthairCat(HasTraits):
         self.scene.engine.on_trait_change(self._selection_change,name = 'current_selection')
         self.simp_solver = None
         self.type = type
+        self.r = r
+        self.penal = penal
+        self.move = move
+        self.e = e
+        self.nu = nu
+        self.volfac = volfac
 
     def _initial_button_fired(self):
         self.initial_thread = threading.Thread(target = self._initial,args=(),name='Thread-1')
@@ -179,6 +185,7 @@ class ShorthairCat(HasTraits):
         self.initial_thread.start()
 
     def _initial(self):
+        global_variable.hyperparameter(r=self.r,move=self.move,e=self.e,penal=self.penal,nu=self.nu,volfac=self.volfac)
         global_variable.initialize_global_variable(type =self.type)
         self.simp_solver = Simp()
         self._mayavi()
@@ -218,6 +225,12 @@ class ShorthairCat(HasTraits):
         self.simp_solver.resultdata.vtkdatasource_density.data = self.simp_solver.resultdata.unstrgrid_density
         self.simp_solver.resultdata.vtkdatasource_density.update()
 
+        self.simp_solver.resultdata.unstrgrid_stress = self.simp_solver.resultdata.generate_unstrgrid_mesh(self.density_filter)
+        self.simp_solver.resultdata.update_unstrgrid_stress(self.simp_solver.resultdata.stress)
+        self.simp_solver.resultdata.vtkdatasource_stress.data = self.simp_solver.resultdata.unstrgrid_stress
+        self.simp_solver.resultdata.vtkdatasource_stress.update()
+
+
     #初始化场景
     def _mayavi(self):
         """Shows how you can generate data using mayavi instead of mlab."""
@@ -233,7 +246,6 @@ class ShorthairCat(HasTraits):
         e.current_scene.children[0].children[0].children[0].actor.property.color = (0,0,0)
         e.current_scene.children[0].children[0].children[0].actor.property.line_width = 1.0
         e.add_module(Surface(name='mesh_solid'))
-
 
         #位移scene配置
         e.current_scene = self.scene0.mayavi_scene
@@ -264,8 +276,8 @@ class ShorthairCat(HasTraits):
         e.add_source(self.simp_solver.resultdata.vtkdatasource_density)
         e.add_module(Surface(name = 'density'))
         self.scene.engine.current_scene.children[0].children[0].children[0].module_manager.scalar_lut_manager.show_legend = True
-
-    #更新数据源
+     
+       
     def _update_vtkdatasource(self,old,new):
 
         print('updating vtkdatasource')
@@ -332,7 +344,7 @@ class ShorthairCat(HasTraits):
     def _animate(self):
 
         self.scene.engine.current_scene = self.scene4.mayavi_scene
-        src = mlab.pipeline.open(('Stress\stress_00.vti'))
+        src = mlab.pipeline.open(('G:\\resultdata\\Stress\stress_00.vti'))
         src.play = True
         src.add_module(Surface(name='animate_stress'))
         self.scene.engine.current_scene.children[0].children[0].children[0].enable_contours=True
@@ -341,7 +353,12 @@ class ShorthairCat(HasTraits):
 
 
 if __name__ == '__main__':
-    m = ShorthairCat(type='cantilever_benchmark')
+    #for cantilever_benchmark     e = 1,         nu = 0.3
+    #for complex2D_benchmark      e = 2.1*50000 ,nu = 0.3
+    #for complex3D_benchmark_hex  e = 2.1E11,    nu = 0.15
+    #for complex3D_benchmark      e = 2.1E11,    nu = 0.15
+    #for cantilever the ex = 2.1,   for complex2D the EX = 2.1*50000, for complex3D the ex = 2.1e11
+    m = ShorthairCat(type='complex3D_benchmark',e =2.1E11, nu=0.15, r = 2, penal = 3, move = 0.2,volfac = 0.4)
     m.configure_traits()
 
 
