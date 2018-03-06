@@ -76,7 +76,7 @@ we choose some benchmarks tested on our program and exihibit the results:<br>
 <img src="REASULTS/L_shape.gif" width="512"/>
 
 <img src="REASULTS/L_shape_density.png" width="512"/>
-<img src="REASULTS/L_shape_stl.png" width="512" height="512"/>
+<img src="REASULTS/L_shape_stl.png" width="512" />
 </p>
 
 * MBB
