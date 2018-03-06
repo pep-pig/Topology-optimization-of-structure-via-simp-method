@@ -60,7 +60,7 @@ Rmin is a pretty important hyperparameter which can determine your final results
 we choose some benchmarks tested on our program and exihibit the results:<br>
 * cantilever 2D:
 <p align="center">
-<img src="REASULTS/cantilever2D.png" width="512"/>
+<img src="REASULTS/cantilever2D.gif" width="512"/>
 </p>
 
 * 3D cantilever with center load
