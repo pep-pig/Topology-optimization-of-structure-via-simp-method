@@ -370,12 +370,11 @@ class ShorthairCat(HasTraits):
 
 
 if __name__ == '__main__':
-    #for cantilever_benchmark     e = 1,         nu = 0.3
-    #for complex2D_benchmark      e = 2.1*50000 ,nu = 0.3
-    #for complex3D_benchmark_hex  e = 2.1E11,    nu = 0.15
-    #for complex3D_benchmark      e = 2.1E11,    nu = 0.15
-    #for cantilever the ex = 2.1,   for complex2D the EX = 2.1*50000, for complex3D the ex = 2.1e11
-
+    #for cantilever2D     e = 1,         nu = 0.3
+    #for complex2D        e = 2.1*50000 ,nu = 0.3
+    #for MBB,L_shape,center_load,distributed_load ：e = 1,    nu = 0.3
+    #L_shape: r = 1.5
+    #MBB,center_load,distributed_load: r = 1.2
     m = ShorthairCat(type='top2d',e =1, nu=0.3, r = 1.2, penal = 3, move = 0.2,volfac = 0.4)
     m.configure_traits()
     try:
