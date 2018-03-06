@@ -44,12 +44,12 @@ we choose some GUI figures exhibited here:
 
 ## Algorithm，hyperparameters 
 
-* Algorithm 
+* Algorithm <br>
 The algorithm is simp method , and the filter is the same with 'top99 lines matlab codes'. The iteration method is OC.<br>
 Algorithm we used need some finite analysis data which we all extract from ANSYS <br>
 Including: displacement,stress ,strain ,element strain energy , element volume ,element center coordinates ,element's nodes number , each element's adjacent elements which used in filter.<br>
 
-* Hyperparameter 
+* Hyperparameter <br>
 There are two kind of hyperparameter in the algorithm:<br>
 material properties: Young's module and Poisson rate<br>
 If the total strain energy is too small ,you can increase Young's module so the algorithm will much more robust
