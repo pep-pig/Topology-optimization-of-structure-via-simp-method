@@ -36,13 +36,10 @@ this version used a new algorithm to restrain checkerboard and mesh independence
 The app named as shorthaircat.<br>
 Shorthaircat could show convergency curve and displacement, stress ,strain ,density in time.<br>
 we choose some GUI figures exhibited here:
-
-
-<figure class="half">
-    <a href="REASULTS/GUI.png"><img src="REASULTS/GUI.png"></a>
-    <a href"REASULTS/GUI_stress.png"><img src="REASULTS/GUI_stress.png"></a>
-</figure>
-
+<p align="center">
+<img src="REASULTS/GUI.png" width="802">
+<img src="REASULTS/GUI_stress.png" width="802">
+</p>
 <p align="center">
 <img src="REASULTS/converge.png" width="520" />
 </p>
@@ -67,15 +64,16 @@ Rmin is a pretty important hyperparameter which can determine your final results
 we choose some benchmarks tested on our program and exihibit the results:<br>
 * cantilever 2D:
 <p align="center">
-<img src="REASULTS/cantilever2D.gif" width="512"/>
+<img src="REASULTS/cantilever2D.gif" width="360"/>
 </p>
 
 * 3D cantilever with center load
 <p align="center">
-<img src="REASULTS/center_load.gif" width="512"/>
-
-<img src="REASULTS/center_load_density.png" width="512"/>
-<img src="REASULTS/center_load_stl.png" width="512"/>
+<img src="REASULTS/center_load.gif" width="360"/>
+</p>
+<p align="center">
+<img src="REASULTS/center_load_density.png" width="360"/>
+<img src="REASULTS/center_load_stl.png" width="360"/>
 </p>
 
 * L_shape problem
