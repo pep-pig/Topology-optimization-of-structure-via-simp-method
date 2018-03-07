@@ -72,29 +72,34 @@ we choose some benchmarks tested on our program and exihibit the results:<br>
 <img src="REASULTS/center_load.gif" width="360"/>
 </p>
 <p align="center">
-<img src="REASULTS/center_load_density.png" width="360"/>
-<img src="REASULTS/center_load_stl.png" width="360"/>
+<img src="REASULTS/center_load_density.png" width="360" height ="300"/>
+<img src="REASULTS/center_load_stl.png" width="360"  height ="300"/>
 </p>
 
 * L_shape problem
 <p align="center">
-<img src="REASULTS/L_shape.gif" width="512"/>
-
-<img src="REASULTS/L_shape_density.png" width="512"/>
-<img src="REASULTS/L_shape_stl.png" width="512" />
+<img src="REASULTS/L_shape.gif" width="360"/>
+</p>
+<p align="center">
+<img src="REASULTS/L_shape_density.png" width="360"  height ="300"/>
+<img src="REASULTS/L_shape_stl.png" width="360"  height ="300" />
 </p>
 
 * MBB
 <p align="center">
-<img src="REASULTS/MBB.gif" width="512"/>
-<img src="REASULTS/MBB_stl.png" width="512"/>
+<img src="REASULTS/MBB.gif" width="360"/>
+<img src="REASULTS/MBB_stl.png" width="360"/>
 </p>
 
 * complex2D
 <p align="center">
-<img src="REASULTS/complex2D.gif" width="512"/>
-<img src="REASULTS/complex2D_stress.png" width="512"/>
+<img src="REASULTS/complex2D.gif" width="360"/>
+<img src="REASULTS/complex2D_stress.png" width="360"/>
 </p>
 
+* complex3D
+<p align="center">
+<img src="REASULTS/complex3D.gif" width="360"/>
+</p>
 
 
