@@ -41,6 +41,10 @@ we choose some GUI figures exhibited here:
 <img src="REASULTS/GUI.png" width="405" height = 360/>
 <img src="REASULTS/GUI_stress.png" width="405" height = 360/>
 </center>
+<figure class="half">
+    <a href="REASULTS/GUI.png"><img src="REASULTS/GUI.png"></a>
+    <a href"REASULTS/GUI_stress.png"><img src="REASULTS/GUI_stress.png"></a>
+</figure>
 
 <p align="center">
 <img src="REASULTS/converge.png" width="520" />
