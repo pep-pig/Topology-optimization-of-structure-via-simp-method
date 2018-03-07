@@ -36,11 +36,17 @@ this version used a new algorithm to restrain checkerboard and mesh independence
 The app named as shorthaircat.<br>
 Shorthaircat could show convergency curve and displacement, stress ,strain ,density in time.<br>
 we choose some GUI figures exhibited here:
+
+<center class="half">
+<img src="REASULTS/GUI.png" width="405" height = 360/>
+<img src="REASULTS/GUI_stress.png" width="405" height = 360/>
+</center>
+
 <p align="center">
-<img src="REASULTS/GUI.png" width="192"/>
-<img src="REASULTS/GUI_stress.png" width="192"/>
-<img src="REASULTS/converge.png" width="192"/>
+<img src="REASULTS/converge.png" width="520" />
 </p>
+
+
 
 ## Algorithm，hyperparameters 
 
