@@ -59,6 +59,30 @@ Algorithm we used need some finite analysis data which we all extract from ANSYS
 *Including*:
 displacement,stress ,strain ,element strain energy , element volume ,element center coordinates ,element's nodes number , each element's adjacent elements which used in filter.<br>
 
+*Objective function*:
+<p align="center">
+<img src="REASULTS/objective_function.png" width="400"/>
+</p>
+
+*Updating scheme*:
+<p align="center">
+<img src="REASULTS/updating_scheme.png" width="400"/>
+</p>
+Where Be and sensitivity are calculated by the fomulas below:
+<p align="center">
+<img src="REASULTS/Be.png" width="200"/>
+<img src="REASULTS/sensitivity.png" width="460"/>  
+</p>
+
+*Filter(used to eliminate checkerboard and mesh-independent)*
+<p align="center">
+<img src="REASULTS/filter.png" width="400"/>
+</p>
+where the weight factor Hf is calculated as follows:
+<p align="center">
+<img src="REASULTS/weight_factor.png" width="400"/>
+</p>
+
 * Hyperparameter <br>
 There are two kind of hyperparameter in the algorithm:<br>
 material properties: Young's module and Poisson rate<br>
