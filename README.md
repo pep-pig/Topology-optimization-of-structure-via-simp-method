@@ -93,12 +93,12 @@ simp methond's hyperparameter : Rmin and move<br>
 
 ## gallery and benchmarks
 we choose some benchmarks tested on our program and exihibit the results:<br>
-* cantilever 2D:
+* cantilever 2D(Rmin = 1.2, move =0.2, penal = 3, volfac = 0.4, e = 1, nu = 0.3):
 <p align="center">
 <img src="REASULTS/cantilever2D.gif" width="360"/>
 </p>
 
-* 3D cantilever with center load
+* 3D cantilever with center load(Rmin = 1.2, move =0.2, penal = 3, volfac = 0.4, e = 1, nu = 0.3):
 <p align="center">
 <img src="REASULTS/center_load.gif" width="360"/>
 </p>
@@ -107,7 +107,7 @@ we choose some benchmarks tested on our program and exihibit the results:<br>
 <img src="REASULTS/center_load_stl.png" width="360"  height ="300"/>
 </p>
 
-* L_shape problem
+* L_shape problem(Rmin = 1.2, move =0.2, penal = 3, volfac = 0.4, e = 1, nu = 0.3)
 <p align="center">
 <img src="REASULTS/L_shape.gif" width="360"/>
 </p>
@@ -116,19 +116,19 @@ we choose some benchmarks tested on our program and exihibit the results:<br>
 <img src="REASULTS/L_shape_stl.png" width="360"  height ="300" />
 </p>
 
-* MBB
+* MBB(Rmin = 1.2, move =0.2, penal = 3, volfac = 0.4, e = 1, nu = 0.3)
 <p align="center">
 <img src="REASULTS/MBB.gif" width="360"/>
 <img src="REASULTS/MBB_stl.png" width="360"/>
 </p>
 
-* complex2D
+* complex2D(Rmin = 1.2, move =0.2, penal = 3, volfac = 0.4, e = 2.1*50000, nu = 0.3)
 <p align="center">
 <img src="REASULTS/complex2D.gif" width="360"/>
 <img src="REASULTS/complex2D_stress.png" width="360"/>
 </p>
 
-* complex3D
+* complex3D(Rmin = 2.5, move =0.2, penal = 3, volfac = 0.4, e = 1, nu = 0.3)
 <p align="center">
 <img src="REASULTS/complex3D.gif" width="360"/>
 </p>
