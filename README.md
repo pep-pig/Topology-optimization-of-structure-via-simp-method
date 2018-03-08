@@ -66,12 +66,12 @@ displacement,stress ,strain ,element strain energy , element volume ,element cen
 
 *Updating scheme*:
 <p align="center">
-<img src="REASULTS/updating_scheme.png" width="400"/>
+<img src="REASULTS/updating_scheme.png" width="460"/>
 </p>
 Where Be and sensitivity are calculated by the fomulas below:
 <p align="center">
-<img src="REASULTS/Be.png" width="200"/>
-<img src="REASULTS/sensitivity.png" width="460"/>  
+<img src="REASULTS/Be.png" width="150"/>
+<img src="REASULTS/sensitivity.png" width="280"/>  
 </p>
 
 *Filter(used to eliminate checkerboard and mesh-independent)*
