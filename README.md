@@ -10,14 +10,14 @@ This app is developed in python 3.6 and require packages as follows :
 * vtk 8.1.0
 * PyQt 4.11 (this is very important ,if you use PyQt 4.12 ,the app will not work)
 
-## vertion info
-All vertion information are discribed as follows:
+## version info
+All version information are discribed as follows:
 
-### vertion 1.0.0
+### version 1.0.0
 * This is a basic optimization frame.<br>
 * The benchmark is a 2D rectangular cantilever , contains two modules: optimization and finite element analysis.The next release will contain data visualization of stress, strain,and displacement.<br>
 
-### vertion 1.1.0
+### version 1.1.0
 This version contains postprocessor to visualize the optimization results．<br>
 Mainly include:<br>
 * Show the stress, strain, and displacement timely.<br>
@@ -25,12 +25,14 @@ Mainly include:<br>
 * Animate the results and make movie.<br> 
 The SDK is Mayavi+traits+traitsUI+tvtk.<br>
   
-### vertion 1.2.0
+### version 1.2.0
 This version is versatile,it can optimize 2D and 3D structure no matter using what kind of grid to mesh the geometry.<br>
 And,this vertion is more much more efficient as I replaced the for loop by vectorizing.
 
-### vertion 1.3.0
+### version 1.3.0
 this version used a new algorithm to restrain checkerboard and mesh independence, And no longer computing strain energy in every iteration step ,instead we getting strain energy from ANSYS directly.This improvement can enhance the robust and efficiency of the optimizer.<br>
+
+### version
 
 ## GUI exhibition
 The app named as shorthaircat.<br>
@@ -51,14 +53,16 @@ we choose some GUI figures exhibited here:
 * Algorithm <br>
 The algorithm is simp method , and the filter is the same with 'top99 lines matlab codes'. The iteration method is OC.<br>
 Algorithm we used need some finite analysis data which we all extract from ANSYS <br>
-Including: displacement,stress ,strain ,element strain energy , element volume ,element center coordinates ,element's nodes number , each element's adjacent elements which used in filter.<br>
+*Including*:
+displacement,stress ,strain ,element strain energy , element volume ,element center coordinates ,element's nodes number , each element's adjacent elements which used in filter.<br>
 
 * Hyperparameter <br>
 There are two kind of hyperparameter in the algorithm:<br>
 material properties: Young's module and Poisson rate<br>
 If the total strain energy is too small ,you can increase Young's module so the algorithm will much more robust
 simp methond's hyperparameter : Rmin and move<br>
-Rmin is a pretty important hyperparameter which can determine your final results. As mentioned in sigmund's PHD thesis , Rmin is approximately the same as the minimun dimention in the toplogy<br>
+*`--Rmin`:a pretty important hyperparameter which can determine your final results. As mentioned in sigmund's PHD thesis , Rmin is approximately the same as the minimun dimention in the toplogy<br>
+*`--move`:If your convergence curve vibrates you could decrease the value of move  
 
 ## Benchmarks gallary
 we choose some benchmarks tested on our program and exihibit the results:<br>
