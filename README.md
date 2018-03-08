@@ -32,7 +32,10 @@ And,this vertion is more much more efficient as I replaced the for loop by vecto
 ### version 1.3.0
 this version used a new algorithm to restrain checkerboard and mesh independence, And no longer computing strain energy in every iteration step ,instead we getting strain energy from ANSYS directly.This improvement can enhance the robust and efficiency of the optimizer.<br>
 
-### version
+### version 1.4.0
+* For robust ,use the same filter as mentioned in "top99"
+* save pictures and make movie by ffmpeg
+* transfer topology results formated by vtu to stl format which can be used to 3D printing
 
 ## GUI exhibition
 The app named as shorthaircat.<br>
@@ -61,8 +64,8 @@ There are two kind of hyperparameter in the algorithm:<br>
 material properties: Young's module and Poisson rate<br>
 If the total strain energy is too small ,you can increase Young's module so the algorithm will much more robust
 simp methond's hyperparameter : Rmin and move<br>
-*`--Rmin`:a pretty important hyperparameter which can determine your final results. As mentioned in sigmund's PHD thesis , Rmin is approximately the same as the minimun dimention in the toplogy<br>
-*`--move`:If your convergence curve vibrates you could decrease the value of move  
+* `--Rmin`:a pretty important hyperparameter which can determine your final results. As mentioned in sigmund's PHD thesis , Rmin is approximately the same as the minimun dimention in the toplogy<br>
+* `--move`:If your convergence curve vibrates you could decrease the value of move  
 
 ## Benchmarks gallary
 we choose some benchmarks tested on our program and exihibit the results:<br>
