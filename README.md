@@ -67,7 +67,7 @@ simp methond's hyperparameter : Rmin and move<br>
 * `--Rmin`:a pretty important hyperparameter which can determine your final results. As mentioned in sigmund's PHD thesis , Rmin is approximately the same as the minimun dimention in the toplogy<br>
 * `--move`:If your convergence curve vibrates you could decrease the value of move  
 
-## Benchmarks gallary
+## gallery and benchmarks
 we choose some benchmarks tested on our program and exihibit the results:<br>
 * cantilever 2D:
 <p align="center">
