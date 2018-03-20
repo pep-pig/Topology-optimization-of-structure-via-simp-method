@@ -1,5 +1,5 @@
 /CWD,'H:\GitHub\Topology-optimization-of-structure-via-simp-method\\ANSYS\results'
-RESUME,'cantilever2D','db','H:\GitHub\Topology-optimization-of-structure-via-simp-method\ANSYS\models',0,0     
+RESUME,'cantilever2D','db','H:\GitHub\Topology-optimization-of-structure-via-simp-method\ANSYS\models',0,0
 /FILENAME,top2d,1
 /TITLE,top2d 
 

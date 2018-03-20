@@ -36,7 +36,7 @@ def initialize_global_variable(type):
         DIM = 24
         GRID_TYPE = 'Hexahedron'
     ANSYS_SOLVER = FiniteElementAnalysis()
-    ANSYS_SOLVER.boot()
+    # ANSYS_SOLVER.boot()
     ELEMENT_COUNTS, NODE_COUNTS = ANSYS_SOLVER.get_counts(ANSYS_SOLVER.awd + 'elements_nodes_counts.txt')
     ELEMENT_ATTRIBUTES, CENTERS, V, NODE_COORDINATES = ANSYS_SOLVER.get_meshmodel_data()
 

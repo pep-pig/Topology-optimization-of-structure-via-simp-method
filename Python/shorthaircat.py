@@ -31,7 +31,7 @@ class ShorthairCat(HasTraits):
     '''
     所有拥有traits属性的类都需要从HasTraits类继承
     '''
-    density_filter = Range(0.0,1.0,0.5)
+    density_filter = Range(0.0,1.0,1.0)
 
     calculate_button = ToolbarButton('Calculate')
 
@@ -306,13 +306,13 @@ class ShorthairCat(HasTraits):
 
         self.simp_solver.resultdata.vtkdatasource_strain.data = self.simp_solver.resultdata.unstrgrid_strain
         self.simp_solver.resultdata.vtkdatasource_strain.update()
-        print(filter)
-        self.simp_solver.resultdata.unstrgrid_density = self.simp_solver.resultdata.generate_unstrgrid_mesh(filter=filter)
+        self.simp_solver.resultdata.unstrgrid_density = self.simp_solver.resultdata.generate_unstrgrid_mesh(filter=1)
         self.simp_solver.resultdata.update_unstrgrid_density(self.simp_solver.resultdata.density)
         self.simp_solver.resultdata.vtkdatasource_density.data = self.simp_solver.resultdata.unstrgrid_density
         self.simp_solver.resultdata.vtkdatasource_density.update()
 
         print('updating done')
+        print("----------------------")
 
     #动态监听currentselection
     def _selection_change(self, old, new):
@@ -328,20 +328,26 @@ class ShorthairCat(HasTraits):
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
         ax.axis("auto")
+        ax.set_ylabel('Strain_energy')
+
+        ax.set_title('convergence curves of strain energy and volume rate')
+
+        ax1 = ax.twinx()
+        ax1.set_ylabel('volume_rate')
+        ax1.set_ylim([0,1])
         # ax.xaxis()# 设置图像显示的时候XY轴比例
         plt.grid(True)  # 添加网格
         plt.ion()  # interactive mode on
         try:
             while 1:
+                ax.set_xlabel('Iteration:' + str(self.simp_solver.loop))
                 ax.plot(self.simp_solver.strain_energy,c='b')
-                ax.set_xlabel('steps')
-                ylabel = 'Strain_energy/Iteration: '+str(self.simp_solver.loop)
-                ax.set_ylabel(ylabel)
-                ax.set_title('convergence curve of strain energy')
-                plt.pause(1)
+                ax1.plot(self.simp_solver.volume_rate,c = 'g')
+                plt.pause(0.5)
                 if self.simp_solver.finished:
                     break
             ax.plot(self.simp_solver.strain_energy,c = 'b')
+            ax1.plot(self.simp_solver.volume_rate, c='g')
             plt.savefig('Convergence_curve.png')
             plt.pause(36000)
 
@@ -372,10 +378,14 @@ class ShorthairCat(HasTraits):
 if __name__ == '__main__':
     #for cantilever2D     e = 1,         nu = 0.3
     #for complex2D        e = 2.1*50000 ,nu = 0.3
-    #for MBB,L_shape,center_load,distributed_load ：e = 1,    nu = 0.3
+    #for MBB,L_shape,center_load,distributed_load:
+    #                     e = 1,    nu = 0.3
     #L_shape: r = 1.5
     #MBB,center_load,distributed_load: r = 1.2
-    m = ShorthairCat(type='top2d',e =1, nu=0.3, r = 1.2, penal = 3, move = 0.2,volfac = 0.4)
+
+    # m = ShorthairCat(type='top2d',e =1, nu=0.3, r = 1.2, penal = 3, move = 0.1,volfac = 0.4)
+    #e = 20000
+    m = ShorthairCat(type='top3d',e =1000, nu=0.2, r = 30, penal = 3, move = 0.1,volfac = 0.2)
     m.configure_traits()
     try:
         vtu2stl()

@@ -1,8 +1,10 @@
-!导入划分好的有限元模型
 /CWD,'H:\GitHub\Topology-optimization-of-structure-via-simp-method\\ANSYS\results'
-RESUME,'center_load','db','H:\GitHub\Topology-optimization-of-structure-via-simp-method\ANSYS\models',0,0     
+RESUME,'cheshen','db','H:\GitHub\Topology-optimization-of-structure-via-simp-method\ANSYS\models',0,0
 /FILENAME,top3d,1
 /TITLE,top3d 
+
+!optional for user defined command
+ESEL,U,TYPE,,5,6
 
 *GET,ELEMSUM,ELEMENT,0,COUNT
 *GET,NODESUM,NODE,0,COUNT
@@ -17,8 +19,8 @@ ANTYPE,0
 !/OUTPUT,elements_stiffness,out,,
 !/DEBUG,-1,,,1
 
-/STATUS,SOLU
-SOLVE
+!/STATUS,SOLU
+!SOLVE
 
 *DIM,ELEMENTS_NODES,ARRAY,ELEMSUM,8
 *VGET,ELEMENTS_NODES(1,1),ELEM,1,NODE,1
@@ -59,26 +61,25 @@ SOLVE
 %10I    %15.7E
 *CFCLOS
 
-*CFOPEN,elements_nodes_counts,txt
-*VWRITE,ELEMSUM,NODESUM
-%10I    %10I
-*CFCLOS
 
 !for 3D project
-*DIM,connectedelem,ARRAY,27,ELEMSUM
-*DIM,neibors,ARRAY,ELEMSUM,27
+*DIM,connectedelem,ARRAY,100,ELEMSUM
+*DIM,neibors,ARRAY,ELEMSUM,100
 *DO,i,1,ELEMSUM
 ESEL,S, , ,i
 NSLE,S
 ESLN,S
+ESEL,U,TYPE,,5,6
 *VGET,connectedelem(1,i),ELEM,,ELIST
 *ENDDO
+
 ALLSEL,ALL
 *MFUN,neibors(1,1),TRAN,connectedelem(1,1)
 *MWRITE,neibors(1,1),neibors,txt,,JIK,100,ELEMSUM,1
 (100F10.0)
 *CFCLOS
 
+ALLSEL,ALL
 SAVE
 FINISH
 exit

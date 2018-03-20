@@ -114,7 +114,7 @@ class ResultData(object):
         self.vtkdatasource_density = VTKDataSource(data=self.unstrgrid_density, name='DensiytData')
 
     #生成网格数据，filter参数是为了过滤我们不想显示的密度单元，1表示全部显示，0表示全部不显示
-    def generate_unstrgrid_mesh(self, filter = 0.5):
+    def generate_unstrgrid_mesh(self, filter = 0):
         points = global_variable.NODE_COORDINATES
         self.index = where(self.density>=(1.0-filter))[0].tolist()
         cells = (global_variable.ELEMENT_ATTRIBUTES[self.index,:]-1)

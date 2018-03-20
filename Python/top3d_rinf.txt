@@ -1,9 +1,11 @@
-!导入有限元模型
 /CWD,'H:\GitHub\Topology-optimization-of-structure-via-simp-method\\ANSYS\results'
-RESUME,'center_load','db','H:\GitHub\Topology-optimization-of-structure-via-simp-method\ANSYS\models',0,0     
+RESUME,'cheshen','db','H:\GitHub\Topology-optimization-of-structure-via-simp-method\ANSYS\models',0,0
 /FILENAME,top3d,1
 /TITLE,top3d 
- 
+ALLSEL,ALL
+ ! optional for your project
+ESEL,U,TYPE,,5,6
+
 *GET,ELEMSUM,ELEMENT,0,COUNT
 *GET,NODESUM,NODE,0,COUNT
 
@@ -24,11 +26,15 @@ FITEM,2,i
 EMODIF,P51X,MAT,i,
 *ENDDO
 
+ALLSEL,ALL
+
 /SOL
 ANTYPE,0
 EQSLV,PCG,1E-4
 /STATUS,SOLU
 SOLVE
+
+ESEL,U,TYPE,,5,6
 
 /POST1
 ETABLE,strain_e,SENE,
@@ -61,6 +67,8 @@ ETABLE,strain_e,SENE,
 *VWRITE,SEQU,NODAL_SOLUTION_STRAIN(1,1)
 %10I    %15.7E
 *CFCLOS
+
+ALLSEL,ALL
 
 SAVE
 FINISH

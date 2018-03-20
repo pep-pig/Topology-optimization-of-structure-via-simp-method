@@ -42,6 +42,7 @@ class Simp(HasTraits):
         self.resultdata = ResultData()
         self.ansys_solver = FiniteElementAnalysis()
         self.strain_energy = []
+        self.volume_rate=[]
         self.finished = False
     
     # A new algorithm
@@ -71,7 +72,6 @@ class Simp(HasTraits):
         x = np.array(x)
         dc = np.array(dc)
         index = np.where(dc<0)
-        print('old_index:',index)
         j = 0
         for _ in dc:
             corrected_dc_demonimator = 0.0
@@ -82,7 +82,6 @@ class Simp(HasTraits):
             corrected_dc.append(corrected_dc_numerator / (x[j] * corrected_dc_demonimator))
             j=j+1
         index = np.where(array(corrected_dc)<0)
-        print('index:',index)
         return corrected_dc
 
     def oc(self, x, volfrac, corrected_dc):
@@ -99,6 +98,10 @@ class Simp(HasTraits):
                 lambda1 = lambda_mid
             else:
                 lambda2 = lambda_mid
+        self.volume_rate.append(sum(xnew*global_variable.V[:,1])/sum(global_variable.V[:,1]))
+        print("volume rate:" , self.volume_rate[-1])
+        print("lamda:",lambda_mid)
+
         return xnew
 
    
@@ -117,11 +120,11 @@ class Simp(HasTraits):
         c_total= 0
         Emin = 1e-9
         #开始迭代
-        while change_x > 0.05 and self.loop<30:
+        while self.loop<26:
             c_old =c_total
             xold = x;
             U, stress, strain = self.ansys_solver.get_result_data(x)
-            c = np.loadtxt(self.ansys_solver.awd+'strain_energy.txt',dtype = float).reshape(global_variable.ELEMENT_COUNTS,1)*2
+            c = np.loadtxt(self.ansys_solver.awd+'strain_energy.txt',dtype = float)[0:global_variable.ELEMENT_COUNTS].reshape(global_variable.ELEMENT_COUNTS,1)*2
             uku = c/(x.reshape((global_variable.ELEMENT_COUNTS,1))**penal)
             dc = (penal*(x.reshape((global_variable.ELEMENT_COUNTS,1))** (penal-1)))*uku
             c_total = sum(c, axis=0)[0]
@@ -133,7 +136,7 @@ class Simp(HasTraits):
             change_x = abs(max(x-xold))
             change_c = abs(c_old - c_total)
             self.strain_energy.append(c_total)
-            print("change_c:",change_c,"    change_x:",change_x,"    c：",c_total,"    loop:",self.loop)
+            print("c：",c_total,"    loop: ",self.loop)
             #更新每一次迭代的结果，整个内存只保存了当前迭代结果
             self.resultdata.undate_ansys_date(U, stress, strain, x)
             #将每一步的迭代结果写入本地内存，以为后续生成动画
