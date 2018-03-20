@@ -7,7 +7,7 @@ This app is developed in python 3.6 and require packages as follows :
 * trait 4.6.0
 * traitsui 5.1.0
 * mayavi 4.5.0
-* vtk 8.1.0
+* vtk 7.1.0
 * PyQt 4.11 (this is very important ,if you use PyQt 4.12 ,the app will not work)
 
 ## version info
@@ -86,10 +86,12 @@ where the weight factor Hf is calculated as follows:
 * Hyperparameter <br>
 There are two kind of hyperparameter in the algorithm:<br>
 material properties: Young's module and Poisson rate<br>
-If the total strain energy is too small ,you can increase Young's module so the algorithm will much more robust
-simp methond's hyperparameter : Rmin and move<br>
+* `--Ex`:If the total strain energy is too small ,you can increase Young's module so the algorithm will much more robust
+simp methond's hyperparameter : Rmin and move and volume factor<br>
 * `--Rmin`:a pretty important hyperparameter which can determine your final results. As mentioned in sigmund's PHD thesis , Rmin is approximately the same as the minimun dimention in the toplogy<br>
-* `--move`:If your convergence curve vibrates you could decrease the value of move  
+* `--move`:If your convergence curve vibrates you could decrease the value of move
+* `--volume factor`: acturally your final topolgy is depend on your 'volume factor',and in many situation ,when you set your volume facotr is 0.5 ,but the volume factor will continuously decrease in every iteration ,so a good way to obtain a ideal topology ,you can set the Ex a small value ,and try different volume factor.
+
 
 ## gallery and benchmarks
 we choose some benchmarks tested on our program and exihibit the results:<br>
