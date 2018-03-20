@@ -135,4 +135,9 @@ we choose some benchmarks tested on our program and exihibit the results:<br>
 <img src="REASULTS/complex3D.gif" width="360"/>
 </p>
 
+* body of AGV(Rmin = 30, move =0.1, penal = 3, volfac = 0.2, e = 1000, nu = 0.3)
+<p align="center">
+<img src="REASULTS/cheshen_1.gif" width="360"/>
+<img src="REASULTS/cheshen_2.gif" width="360"/>  
+</p>
 
