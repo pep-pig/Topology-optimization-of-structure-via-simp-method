@@ -140,4 +140,7 @@ we choose some benchmarks tested on our program and exihibit the results:<br>
 <img src="REASULTS/cheshen_1.gif" width="360"/>
 <img src="REASULTS/cheshen_2.gif" width="360"/>  
 </p>
+<p align="center">
+<img src="REASULTS/chejia.jpg" width="500"/>
+</p>
 
