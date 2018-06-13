@@ -9,6 +9,13 @@ This app is developed in python 3.6 and require packages as follows :
 * mayavi 4.5.0
 * vtk 7.1.0
 * PyQt 4.11 (this is very important ,if you use PyQt 4.12 ,the app will not work)
+## usage
+*  1. you should get the right ANSYS MAPDL.exe path in your computer to substitude the `self.ansys_path` in `finite_element_analysis.py`
+and choose the result path to save ANSYS result files.
+*  2. you should edit APDL by your self,and there are some tips:<br>
+`①` you should make sure that the path of .db file you resume from is right which should be the same as your ANSYS result files path you set in usage1<br>
+`②`the application can only optimize the modal that consist following kind of element:
+`3 nodes triangular element` ,`4 nodes quadrangle element `,`4 nodes  tetrahedron element `,`8 nodes hexahedron element`
 
 ## version info
 All version information are discribed as follows:
