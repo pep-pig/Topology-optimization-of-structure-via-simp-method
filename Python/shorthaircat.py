@@ -326,6 +326,7 @@ class ShorthairCat(HasTraits):
         plt.close()  # clf() # 清图  cla() # 清坐标轴 close() # 关窗口
 
         fig = plt.figure()
+        fig.hold(False)
         ax = fig.add_subplot(1, 1, 1)
         ax.axis("auto")
         ax.set_ylabel('Strain_energy')
